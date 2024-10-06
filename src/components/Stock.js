@@ -16,7 +16,6 @@ export const StockSelect = () => {
 
         const response = await fetch(API_Call);
         const data = await response.json();
-        debugger;
         for (let key in data["Time Series (Daily)"]) {
           stockChartXValuesFunction.push(key);
           stockChartYValuesFunction.push(
@@ -32,7 +31,7 @@ export const StockSelect = () => {
         console.log(e);
       }
     };
-    // fetchData();
+    fetchData();
   }, []);
   return loader ? (
     <LoaderWrapper>
