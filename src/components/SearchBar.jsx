@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import "./search-bar.css";
 import { debounce } from "lodash";
-import { API_KEY, transformSeasrchRsults } from "./common";
+import { API_KEY, transformSearchRsults } from "./common";
 export const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
@@ -18,7 +18,7 @@ export const SearchBar = (props) => {
         const response = await fetch(apiUrl);
         const results = await response.json();
 
-        const data = transformSeasrchRsults(results);
+        const data = transformSearchRsults(results);
         console.log("Searching for:", data);
         setResults(data);
       } catch (error) {
@@ -26,8 +26,8 @@ export const SearchBar = (props) => {
       } finally {
         setLoading(false);
       }
-    }, 500),
-    []
+    }, 500), // Debounce delay
+    [API_KEY, setLoading, setResults] // Add all necessary dependencies here
   );
 
   // Watch for changes in searchTerm and trigger the debounced search
