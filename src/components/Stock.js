@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import { CirclesWithBar } from "react-loader-spinner";
 import styled from "styled-components";
+import { NewsSection } from "./news-section/NewsSection";
+import { SearchBar } from "./SearchBar";
+import { API_KEY } from "./common";
 export const StockSelect = () => {
   const [stockData, setStockData] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [symbol, setSymbolUpdate] = useState("MSFT");
+  const [stockName, setStockName] = useState("Microsoft");
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_KEY = "RZOSIHBR6MCJ0GG8";
-        const StockSymbol = "MSFT";
-        let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
+        const StockSymbol = symbol;
+        let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&outputsize=full&apikey=${API_KEY}`;
         let stockChartXValuesFunction = [];
         let stockChartYValuesFunction = [];
 
@@ -31,8 +35,9 @@ export const StockSelect = () => {
         console.log(e);
       }
     };
+    // setLoader(false);
     fetchData();
-  }, []);
+  }, [symbol]);
   return loader ? (
     <LoaderWrapper>
       <CirclesWithBar
@@ -49,22 +54,29 @@ export const StockSelect = () => {
       />
     </LoaderWrapper>
   ) : (
-    <div className="stock">
-      <h1>Stock Market</h1>
-      <h2>Microsoft</h2>
-      <div>
-        <Plot
-          data={[
-            {
-              x: stockData.xValues,
-              y: stockData.yValues,
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: "red" },
-            },
-          ]}
-          layout={{ width: 720, height: 440, title: "A Fancy Plot" }}
+    <div className="stock-analyser-page">
+      <NewsSection />
+      <div className="stock">
+        <h1>Stock Market</h1>
+        <SearchBar
+          setSymbolUpdate={setSymbolUpdate}
+          setStockName={setStockName}
         />
+        <h2>{stockName}</h2>
+        <div>
+          <Plot
+            data={[
+              {
+                x: stockData.xValues,
+                y: stockData.yValues,
+                type: "scatter",
+                mode: "lines+markers",
+                marker: { color: "red" },
+              },
+            ]}
+            layout={{ width: 720, height: 440 }}
+          />
+        </div>
       </div>
     </div>
   );
