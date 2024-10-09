@@ -13,6 +13,7 @@ export const StockSelect = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoader(true);
         const StockSymbol = symbol;
         let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&outputsize=full&apikey=${API_KEY}`;
         let stockChartXValuesFunction = [];
@@ -35,9 +36,9 @@ export const StockSelect = () => {
         console.log(e);
       }
     };
-    // setLoader(false);
     fetchData();
   }, [symbol]);
+  console.log("render");
   return loader ? (
     <LoaderWrapper>
       <CirclesWithBar
@@ -55,7 +56,7 @@ export const StockSelect = () => {
     </LoaderWrapper>
   ) : (
     <div className="stock-analyser-page">
-      <NewsSection />
+      {/* <NewsSection /> */}
       <div className="stock">
         <h1>Stock Market</h1>
         <SearchBar

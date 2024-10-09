@@ -1,5 +1,5 @@
 export const API_KEY = "RZOSIHBR6MCJ0GG8";
-export const transformSearchRsults = (results) => {
+export const transformSearchResults = (results) => {
   const data = [];
   const key = "4. region";
   const nameKey = "2. name";
