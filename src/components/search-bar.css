@@ -3,10 +3,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 }
 .results-dropdown {
-  position: relative;
-  top: 10px;
+  position: absolute;
+  top: 65px;
   width: 500px;
   max-height: 150px;
   min-height: 50px;

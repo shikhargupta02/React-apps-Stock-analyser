@@ -57,7 +57,6 @@ export const SearchBar = (props) => {
     props.setSymbolUpdate(result[symbolKey]);
     props.setStockName(result[nameKey]);
   };
-  console.log("renderdewfe");
   return (
     <div className="search-container">
       <div className="search-bar">
@@ -67,7 +66,6 @@ export const SearchBar = (props) => {
           onChange={handleChange}
           className="search-input"
           placeholder="Search for anything..."
-          onBlur={handleBlur}
         />
 
         {/* Search Icon */}
@@ -83,7 +81,9 @@ export const SearchBar = (props) => {
             {results.map((item, index) => (
               <li
                 key={index}
-                onClick={() => handleSelect(item)}
+                onClick={() => {
+                  handleSelect(item);
+                }}
                 style={{
                   padding: "10px",
                   cursor: "pointer",

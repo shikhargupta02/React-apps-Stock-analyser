@@ -12,6 +12,7 @@ export const StockSelect = () => {
   const [stockName, setStockName] = useState("Microsoft");
   useEffect(() => {
     const fetchData = async () => {
+      debugger;
       try {
         setLoader(true);
         const StockSymbol = symbol;
@@ -38,7 +39,6 @@ export const StockSelect = () => {
     };
     fetchData();
   }, [symbol]);
-  console.log("render");
   return loader ? (
     <LoaderWrapper>
       <CirclesWithBar
